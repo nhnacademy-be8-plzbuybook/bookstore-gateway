@@ -19,9 +19,9 @@ public class RouteLocatorConfig {
         return builder.routes()
                 //인증
                 //TODO account api 경로 p.path에 설정 (아직 account 경로 정하지 않음)
-                .route("bookstore-authentication-api", p -> p.path("/api/account/**")
+                .route("authentication", p -> p.path("/hello")
                         .filters(f->f.filter(jwtAuthorizationHeaderFilter.apply(new JwtAuthorizationHeaderFilter.Config())))
-                        .uri("lb://localhost:8082")
+                        .uri("lb://AUTHENTICATION/hello")
                 )
                 //쇼핑몰
                 //TODO account api 경로 p.path에 설정 (아직 shoppingmall 경로 정하지 않음)
