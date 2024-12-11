@@ -3,6 +3,8 @@ package com.nhnacademy.bookstoregateway.filter;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -12,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.crypto.SecretKey;
 
 @Component
 @Slf4j
@@ -26,6 +30,11 @@ public class JwtAuthorizationHeaderFilter extends AbstractGatewayFilterFactory<J
 
     public static class Config {
         //application.properties 파일에서 지정한 filter의 Argument값을 받는 부분
+    }
+
+    private SecretKey getSigningKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     @Override
@@ -54,7 +63,7 @@ public class JwtAuthorizationHeaderFilter extends AbstractGatewayFilterFactory<J
             try {
                 //jwt토큰 파싱하여 claim객체를 가져옴
                 Claims claims = Jwts.parserBuilder()
-                        .setSigningKey(SECRET_KEY.getBytes())  //비밀키를 통한 토큰의 서명 검증
+                        .setSigningKey(getSigningKey())  //비밀키를 통한 토큰의 서명 검증
                         .build()
                         .parseClaimsJws(token).
                         getBody();
