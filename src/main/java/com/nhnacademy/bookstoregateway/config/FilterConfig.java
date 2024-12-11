@@ -1,4 +1,4 @@
-package com.nhnacademy.bookstoregateway.config;
-
-public class FilterConfig {
-}
+//package com.nhnacademy.bookstoregateway.config;
+//
+//public class FilterConfig {
+//}
