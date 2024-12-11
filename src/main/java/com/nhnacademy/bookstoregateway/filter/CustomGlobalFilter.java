@@ -1,3 +1,4 @@
+
 package com.nhnacademy.bookstoregateway.filter;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,3 +25,4 @@ public class CustomGlobalFilter implements org.springframework.cloud.gateway.fil
         return -1;
     }
 }
+

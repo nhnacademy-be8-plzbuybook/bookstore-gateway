@@ -1,3 +1,4 @@
+
 package com.nhnacademy.bookstoregateway.filter;
 
 import io.jsonwebtoken.Claims;
@@ -80,3 +81,4 @@ public class JwtAuthorizationHeaderFilter extends AbstractGatewayFilterFactory<J
 //게이트 웨이에서 Authorization의 헤더를 확인하고 jwt 검증 필터 실행(검증 필터가 JwtAuthorizationHeaderFilter의 역할)
 //검증이 완료 되면 헤더에 x-user-id , <userId>를 추가함 ==> 검증된 사용자라는 뜻
 //백엔드는 요청을 인증된 사용자임을 확인하고 적절히 처리
+
