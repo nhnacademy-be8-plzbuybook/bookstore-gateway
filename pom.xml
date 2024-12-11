@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.0</version>
+        <version>3.3.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.nhnacademy</groupId>
@@ -26,15 +26,28 @@
         <tag/>
         <url/>
     </scm>
+    <packaging>jar</packaging>
     <properties>
         <java.version>21</java.version>
         <spring-cloud.version>2024.0.0</spring-cloud.version>
+
+        <!-- SonarQube와 관련된 설정 -->
+        <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+
+            <jacoco.version>0.8.8</jacoco.version>
+            <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+            <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+            <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+            <sonar.language>java</sonar.language>
     </properties>
     <dependencies>
+        <!-- Spring Cloud Gateway 의존성 (API Gateway 기능 제공) -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
+
+        <!-- Netflix Eureka 클라이언트 의존성 (서비스 디스커버리 기능 제공) -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -50,9 +63,16 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Thymeleaf 템플릿 엔진 의존성 (웹 페이지 렌더링용) -->
 
 
+        <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            </dependency>
 
+
+        <!-- JWT 라이브러리 의존성 (토큰 기반 인증 및 인가 기능) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -76,9 +96,6 @@
             <artifactId>lombok</artifactId>
             <version>1.18.34</version>
         </dependency>
-
-
-
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -91,14 +108,59 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <build>
+        <finalName>bookstore-gateway</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <!-- test skip 하려면 true 설정 -->
+                    <skipTests>false</skipTests>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.9</version>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
+
+
 </project>
+
+
+
+
+
+
+
+
+
+
+
