@@ -11,8 +11,8 @@ public class RouteConfig {
     @Bean
     public RouteLocator msRoute(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("example_route", r -> r.path("/example/**")
-                        .uri("http://localhost:8080"))
+                .route("auth_service", r -> r.path("/auth/**")  // /auth/** 경로 처리
+                        .uri("http://localhost:8082"))        // 인증 서버 URL로 전달
                 .build();
     }
 }
