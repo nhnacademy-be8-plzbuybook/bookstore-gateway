@@ -18,10 +18,10 @@ public class RouteLocatorConfig {
     @Bean
     public RouteLocator myRoute(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("auth", p -> p.path("/api/auth/**")
-                        .uri("lb://bookstore-authentication-api")
+                .route("gateway-dev", r -> r.path("/api/**")
+                        .uri("lb://authentication-dev")
                 )
-                .route("shoppingmall", p -> p.path("/api/members/**")
+                .route("shoppingmall", r -> r.path("/api/members/**")
                         .filters(f -> f.filter(jwtAuthorizationHeaderFilter.apply(new JwtAuthorizationHeaderFilter.Config())))
                         .uri("lb://bookstore-shoppingmall")
                 )
