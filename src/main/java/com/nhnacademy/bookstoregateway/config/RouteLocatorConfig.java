@@ -23,7 +23,11 @@ public class RouteLocatorConfig {
                 )
                 .route("shoppingmall", p -> p.path("/api/members/**")
                         .filters(f -> f.filter(jwtAuthorizationHeaderFilter.apply(new JwtAuthorizationHeaderFilter.Config())))
-                        .uri("lb://bookstore-shoppingmall")
+                        .uri("lb://BOOKSTORE-BACK2")
+                )
+                // 권한 부여 필요.
+                .route("bookstore", p->p.path("/api/objects/**")
+                        .uri("lb://BOOKSTORE-BACK2")
                 )
                 .build();
     }
