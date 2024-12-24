@@ -7,7 +7,7 @@ spring:
       on-profile: prod
 
   application:
-    name: bookstore-gateway
+    name: gateway
 
   main:
     web-application-type: reactive
