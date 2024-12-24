@@ -19,18 +19,18 @@ public class RouteLocatorConfig {
     public RouteLocator myRoute(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("books",  p -> p.path("/api/books/**")
-                        .uri("lb://BOOKSTORE-BACK1-DEV")
+                        .uri("lb://BOOKSTORE")
                 )
                 .route("auth", p -> p.path("/api/auth/**")
-                        .uri("lb://AUTHENTICATION-DEV")
+                        .uri("lb://AUTHENTICATION")
                 )
                 .route("shoppingmall", p -> p.path("/api/members/**")
                         .filters(f -> f.filter(jwtAuthorizationHeaderFilter.apply(new JwtAuthorizationHeaderFilter.Config())))
-                        .uri("lb://BOOKSTORE-BACK2")
+                        .uri("lb://BOOKSTORE")
                 )
                 // 권한 부여 필요.
                 .route("bookstore", p->p.path("/api/objects/**")
-                        .uri("lb://BOOKSTORE-BACK2")
+                        .uri("lb://BOOKSTORE")
                 )
                 .build();
     }

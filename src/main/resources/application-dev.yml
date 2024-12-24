@@ -5,8 +5,9 @@ spring:
   config:
     activate:
       on-profile: dev
+
   application:
-    name: gateway-dev
+    name: gateway
 
   main:
     web-application-type: reactive
