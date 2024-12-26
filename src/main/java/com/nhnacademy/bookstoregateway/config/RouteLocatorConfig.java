@@ -7,6 +7,7 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 @Configuration
 @RequiredArgsConstructor
 public class RouteLocatorConfig {
@@ -17,20 +18,20 @@ public class RouteLocatorConfig {
     @Bean
     public RouteLocator myRoute(RouteLocatorBuilder builder) {
         return builder.routes()
-                //인증
-                //TODO account api 경로 p.path에 설정 (아직 account 경로 정하지 않음)
-                .route("authentication", p -> p.path("/api/login")
-//                        .filters(f->f.filter(jwtAuthorizationHeaderFilter.apply(new JwtAuthorizationHeaderFilter.Config())))
-                        .uri("lb://SHOPPINGMALL-SERVICE/api/login")
+                .route("books",  p -> p.path("/api/books/**")
+                        .uri("lb://BOOKSTORE")
                 )
-                //쇼핑몰
-                //TODO account api 경로 p.path에 설정 (아직 shoppingmall 경로 정하지 않음)
-                .route("bookstore-shoppingmall", p -> p.path("/api/shop/***")
-                                .and()
-//                              .weight("bookstore-shoppingmall", 50)  쿠폰 서버가 분리 될 경우 추가
-                                .uri("lb://localhost:8081")
-                ).build();
-
+                .route("auth", p -> p.path("/api/auth/**")
+                        .uri("lb://AUTHENTICATION")
+                )
+                .route("shoppingmall", p -> p.path("/api/members/**")
+                        .filters(f -> f.filter(jwtAuthorizationHeaderFilter.apply(new JwtAuthorizationHeaderFilter.Config())))
+                        .uri("lb://BOOKSTORE")
+                )
+                // 권한 부여 필요.
+                .route("bookstore", p->p.path("/api/objects/**")
+                        .uri("lb://BOOKSTORE")
+                )
+                .build();
     }
 }
-
