@@ -46,13 +46,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd /home/nhnacademy/gateway
-            
-            if ! sudo docker network inspect back_network > /dev/null 2>&1; then
-              sudo docker network create back_network
-            fi
-            
-            
+            cd /home/nhnacademy/gateway 
             sudo docker stop gateway || true
             sudo docker rm gateway || true
             sudo docker build -t gateway-image .
