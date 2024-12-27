@@ -39,7 +39,7 @@ public class JwtAuthorizationHeaderFilter extends AbstractGatewayFilterFactory<J
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
 
-            if ("/api/login".equals(request.getURI().getPath())) {
+            if ("/api/members".equals(request.getURI().getPath())) {
                 //여기에 uri 추가하거나 static으로 인증이 필요 없는 uri 정의 해둔다
                 log.debug("인증 필요 없이 통과");
                 return chain.filter(exchange);
