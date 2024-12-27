@@ -32,6 +32,9 @@ public class RouteLocatorConfig {
                 .route("bookstore", p->p.path("/api/objects/**")
                         .uri("lb://BOOKSTORE")
                 )
+                .route("coupon", p->p.path("/api/coupons/**")
+                        .uri("lb://COUPON")
+                )
                 .build();
     }
 }
