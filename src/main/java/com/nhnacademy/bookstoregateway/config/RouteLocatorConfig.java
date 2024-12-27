@@ -18,7 +18,7 @@ public class RouteLocatorConfig {
     @Bean
     public RouteLocator myRoute(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("books",  p -> p.path("/api/books/**")
+                .route("books",  p -> p.path("/api/selling-books/**")
                         .uri("lb://BOOKSTORE")
                 )
                 .route("auth", p -> p.path("/api/auth/**")
