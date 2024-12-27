@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.web.server.ServerWebExchange;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -39,8 +40,11 @@ public class JwtAuthorizationHeaderFilter extends AbstractGatewayFilterFactory<J
             ServerHttpRequest request = exchange.getRequest();
 
             if ("/api/login".equals(request.getURI().getPath())) {
+                //여기에 uri 추가하거나 static으로 인증이 필요 없는 uri 정의 해둔다
+                log.debug("인증 필요 없이 통과");
                 return chain.filter(exchange);
             }
+
 
             if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                 log.error("Authorization 헤더가 없다!");
