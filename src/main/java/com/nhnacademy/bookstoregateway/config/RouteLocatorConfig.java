@@ -18,7 +18,10 @@ public class RouteLocatorConfig {
     @Bean
     public RouteLocator myRoute(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("books",  p -> p.path("/api/books/**")
+                .route("books",  p -> p.path("/api/selling-books/**")
+                        .uri("lb://BOOKSTORE")
+                )
+                .route("books2",  p -> p.path("/api/books/**")
                         .uri("lb://BOOKSTORE")
                 )
                 .route("auth", p -> p.path("/api/auth/**")
@@ -31,6 +34,9 @@ public class RouteLocatorConfig {
                 // 권한 부여 필요.
                 .route("bookstore", p->p.path("/api/objects/**")
                         .uri("lb://BOOKSTORE")
+                )
+                .route("coupon", p->p.path("/api/coupons/**")
+                        .uri("lb://COUPON")
                 )
                 .build();
     }

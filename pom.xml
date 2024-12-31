@@ -34,7 +34,7 @@
         <!-- SonarQube와 관련된 설정 -->
         <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
 
-            <jacoco.version>0.8.8</jacoco.version>
+            <jacoco.version>0.8.12</jacoco.version>
             <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
             <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
             <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
@@ -91,6 +91,32 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- log&crash logback sdk 사용을 위한 필수 의존성 -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20240303</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.12</version>
+        </dependency>
+        <!-- sdk 파일을 실행시키기 위한 libs 하위 jar파일 직접 의존성 추가 -->
+        <dependency>
+            <groupId>com.nhnacademy</groupId>
+            <artifactId>toast-logncrash-java-sdk</artifactId>
+            <version>3.0.5</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/toast-logncrash-logback-sdk-3.0.5.jar</systemPath>
+        </dependency>
+
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -129,7 +155,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.9</version>
+                <version>0.8.12</version>
                 <executions>
                     <execution>
                         <id>jacoco-initialize</id>
