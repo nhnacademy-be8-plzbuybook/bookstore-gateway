@@ -26,6 +26,9 @@ public class RouteLocatorConfig {
                 .route("admin_selling_books", p -> p.path("/api/admin/selling-books/**")
                         .uri("lb://BOOKSTORE")
                 )
+                .route("admin_selling_books", p -> p.path("/api/admin/books/**")
+                        .uri("lb://BOOKSTORE") // 관리자 도서 등록
+                )
                 .route("books",  p -> p.path("/api/member-selling-books/like/**")
                         .filters(f -> f.filter(jwtAuthorizationHeaderFilter.apply(new JwtAuthorizationHeaderFilter.Config())))
                         .uri("lb://BOOKSTORE")
