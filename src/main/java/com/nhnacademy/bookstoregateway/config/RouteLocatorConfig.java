@@ -85,6 +85,10 @@ public class RouteLocatorConfig {
                 .route("paymentClient", p->p.path("/api/delivery-fee-policies/**")
                         .uri("lb://BOOKSTORE")
                 )
+                .route("cartClient", p->p.path("/api/bookstore/carts/**")
+                        .filters(f -> f.filter(jwtAuthorizationHeaderFilter.apply(new JwtAuthorizationHeaderFilter.Config())))
+                        .uri("lb://BOOKSTORE")
+                )
                 .build();
     }
 }
