@@ -51,6 +51,7 @@ public class RouteLocatorConfig {
                         .uri("lb://BOOKSTORE")
                 )
                 .route("point", p->p.path("/api/points/**")
+                        .filters(f -> f.filter(jwtAuthorizationHeaderFilter.apply(new JwtAuthorizationHeaderFilter.Config())))
                        .uri("lb://BOOKSTORE")
                 )
                 .route("bookstore", p->p.path("/api/categories/**")
