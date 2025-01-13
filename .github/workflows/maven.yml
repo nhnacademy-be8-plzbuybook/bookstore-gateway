@@ -50,4 +50,4 @@ jobs:
             sudo docker stop gateway || true
             sudo docker rm gateway || true
             sudo docker build -t gateway-image .
-            sudo docker run -d -p 8080:8080 --name gateway --network front_network -e "SPRING_PROFILES_ACTIVE=prod" gateway-image
+            sudo docker run -d -p 8080:8080 --name gateway --network front_network -e "SPRING_PROFILES_ACTIVE=prod" -e "TZ=Asia/Seoul" gateway-image
