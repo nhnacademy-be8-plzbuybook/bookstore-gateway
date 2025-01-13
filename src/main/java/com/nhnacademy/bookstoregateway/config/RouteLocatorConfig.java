@@ -110,6 +110,9 @@ public class RouteLocatorConfig {
                         .filters(f -> f.filter(jwtAuthorizationHeaderFilter.apply(new JwtAuthorizationHeaderFilter.Config())))
                         .uri("lb://BOOKSTORE")
                 )
+                .route("guestCartClient", p->p.path("/api/bookstore/guests/carts/**")
+                        .uri("lb://BOOKSTORE")
+                )
                 .build();
     }
 }
