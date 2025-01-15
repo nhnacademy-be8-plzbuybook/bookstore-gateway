@@ -95,6 +95,7 @@ public class RouteLocatorConfig {
                         .uri("lb://BOOKSTORE")
                 )
                 .route("orderClient", p->p.path("/api/orders/**")
+                        .filters(f -> f.filter(jwtAuthorizationHeaderFilter.apply(new JwtAuthorizationHeaderFilter.Config())))
                         .uri("lb://BOOKSTORE")
                 )
                 .route("paymentClient", p->p.path("/api/payments/**")
