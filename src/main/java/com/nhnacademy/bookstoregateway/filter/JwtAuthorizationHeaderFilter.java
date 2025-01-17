@@ -1,6 +1,7 @@
 package com.nhnacademy.bookstoregateway.filter;
 
 
+import com.nhnacademy.bookstoregateway.exception.JwtTokenExpiredException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -38,7 +39,7 @@ public class JwtAuthorizationHeaderFilter extends AbstractGatewayFilterFactory<J
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
-
+            //회원 가입
             if ("/api/members".equals(request.getURI().getPath())) {
                 //여기에 uri 추가하거나 static으로 인증이 필요 없는 uri 정의 해둔다
                 log.debug("인증 필요 없이 통과");
@@ -77,7 +78,7 @@ public class JwtAuthorizationHeaderFilter extends AbstractGatewayFilterFactory<J
             } catch (ExpiredJwtException e) {
                 // 토큰이 만료된 경우 예외 처리
                 log.error("JWT 토큰이 만료되었습니다.");
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "JWT 토큰이 만료되었습니다.");
+                throw new JwtTokenExpiredException("JWT 토큰이 만료되었습니다.");
             }  catch (MalformedJwtException e) {
                 // JWT의 형식이 잘못된 경우 처리
                 log.error("잘못된 JWT 형식입니다.", e);
