@@ -45,11 +45,6 @@ public class JwtAuthorizationHeaderFilter extends AbstractGatewayFilterFactory<J
                 log.debug("인증 필요 없이 통과");
                 return chain.filter(exchange);
             }
-            if (request.getURI().getPath().equals("/api/orders") || request.getURI().getPath().contains("complete")) {
-                return chain.filter(exchange);
-            }
-
-
 
             if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                 log.error("Authorization 헤더가 없다!");
