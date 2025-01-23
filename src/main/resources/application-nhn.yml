@@ -2,10 +2,6 @@ server:
   port: 10140
 
 spring:
-  config:
-    activate:
-      on-profile: nhn
-
   application:
     name: gateway
 
@@ -23,7 +19,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:10149/eureka
+      defaultZone: http://10.116.64.14:10149/eureka
 
 logging:
   level:
