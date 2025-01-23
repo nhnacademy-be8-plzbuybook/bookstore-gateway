@@ -46,7 +46,6 @@ public class JwtAuthorizationHeaderFilter extends AbstractGatewayFilterFactory<J
                 return chain.filter(exchange);
             }
 
-
             if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                 log.error("Authorization 헤더가 없다!");
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authorization 헤더가 없다!");
