@@ -15,7 +15,7 @@
     <!-- 파일 출력 Appender -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 로그 파일 저장 경로 -->
-        <file>./logs/shop.log</file>
+        <file>./logs/gateway.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>./logs/application-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>10</maxHistory>
